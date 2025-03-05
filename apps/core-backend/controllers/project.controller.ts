@@ -2,16 +2,33 @@ import prisma from "db/client"
 import asyncHandler from "../utils/asyncHandler";
 
 const createProject = asyncHandler( async (req, res) => {
-  //get prompt
+  
   const { prompt } = req.body;
   const description = prompt.split("\n")[0];
-  //get user id
-  const userId = (req as any).userId;
-  //create entry in project as description for that userId
+
+  const email = (req as any).user.email;
+
+  const userId = await prisma.users.findFirst({
+    where: { email },
+    select: { id: true }
+  });
+
+  if(!userId){
+    return res.status(404).json({
+      message: "User does not exist"
+    });
+  };
+
   const projectData = await prisma.projects.create({
     data: {
       description,
-      userId
+      userId: userId.id
+    },
+    select: {
+      id: true,
+      description: true,
+      createdAT: true,
+      updatedAt: true
     }
   });
 

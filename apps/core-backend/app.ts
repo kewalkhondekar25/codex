@@ -7,9 +7,12 @@ app.use(express.json());
 app.use(cors());
 
 //routes
-import healthRouter from "./routes/healthCheck.route"
+import healthRouter from "./routes/healthCheck.route";
+import projectRouter from "./routes/project.route";
+import authMiddleware from "./middlewares/auth.middleware";
 
 app.use("/api/v1", healthRouter);
+app.use("/api/v1/project", authMiddleware, projectRouter)
 
 
 export default app;

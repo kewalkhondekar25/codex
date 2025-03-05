@@ -5,8 +5,8 @@ import jwt from "jsonwebtoken";
 const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers["authorization"];
-    const token = authHeader?.split("")[1];
-
+    const token = authHeader?.split(" ")[1];
+    
     if(!token){
       res.status(401).json({
         message: "No token provided"
@@ -14,6 +14,8 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
       return;
     };
 
+    console.log("CLERK_JWT_PUBLIC_KEY: ", process.env.CLERK_JWT_PUBLIC_KEY);
+    
     const publicKey = process.env.CLERK_JWT_PUBLIC_KEY!;
     if(!publicKey){
       res.status(500).json({
@@ -21,19 +23,25 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
       });
     };
 
-    const formattedKey = publicKey.replace(/\\n/g, "\n");
+    // const formattedKey = publicKey.replace(/\\n/g, "\n");
+    // console.log("formattedKey: ", formattedKey);
+    
 
-    const decoded = jwt.verify(token, formattedKey, {
+    const decoded = jwt.verify(token, publicKey, {
       algorithms: ["RS256"]
     });
+
+    console.log("decoded: ", decoded);
+    
 
     if(!decoded){
       res.status(401).json({
         message: "Unauthorize to access"
       });
+      return;
     };
 
-    const userId = (decoded as any).payload.sub;
+    const userId = (decoded as any).sub;
 
     if(!userId){
       res.status(403).json({
