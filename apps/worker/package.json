@@ -1,16 +1,18 @@
 {
-  "name": "common",
+  "name": "worker",
   "module": "index.ts",
   "type": "module",
-  "exports": {
-    "./authMiddleware": "./authMiddleware.ts",
-    "./asyncHandler": "./asyncHandler.ts"
-  },
   "private": true,
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
   }
 }
