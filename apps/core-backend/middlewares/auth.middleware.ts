@@ -23,10 +23,6 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction) =
       });
     };
 
-    // const formattedKey = publicKey.replace(/\\n/g, "\n");
-    // console.log("formattedKey: ", formattedKey);
-    
-
     const decoded = jwt.verify(token, publicKey, {
       algorithms: ["RS256"]
     });
