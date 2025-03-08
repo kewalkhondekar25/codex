@@ -4,7 +4,11 @@
   "type": "module",
   "exports": {
     "./authMiddleware": "./authMiddleware.ts",
-    "./asyncHandler": "./asyncHandler.ts"
+    "./asyncHandler": "./asyncHandler.ts",
+    "./questionPrompt": "./prompts.ts",
+    "./basePrompts": "./prompts.ts",
+    "./reactBasePrompt": "./prompts.ts",
+    "./nodeBasePrompt": "./prompts.ts"
   },
   "private": true,
   "devDependencies": {

@@ -13,7 +13,7 @@ import projectRouter from "./routes/project.route";
 import { authMiddleware } from "common/authMiddleware"
 
 app.use("/api/v1", healthRouter);
-app.use("/api/v1/project", authMiddleware, projectRouter)
+app.use("/api/v1/project", projectRouter);
 
 
 export default app;
