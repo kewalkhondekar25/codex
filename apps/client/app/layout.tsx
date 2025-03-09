@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +18,16 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
       <body suppressHydrationWarning={true}>
         <ClerkProvider>
-          {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange>
+            <div className="fixed top-3 right-3 z-50">
+              <ModeToggle />
+            </div>
+            {children}
+          </ThemeProvider>
         </ClerkProvider>
       </body>
     </html>
