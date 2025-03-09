@@ -36,7 +36,7 @@ const Stepper = () => {
 
   return (
     <div>
-      <Card className='w-1/4'>
+      <Card>
         <CardHeader>
           <CardTitle>Todoist</CardTitle>
           <CardDescription>Initializing project</CardDescription>
